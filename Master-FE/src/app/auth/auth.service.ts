@@ -53,7 +53,7 @@ export class AuthService {
             email: email,
             password: password
         }
-        this.http.post<AuthResponse>(BACKEND_URL + "/register", authData)
+        this.http.post<AuthResponse>(BACKEND_URL + "/users/register", authData)
         .subscribe(response => {
             localStorage.setItem ('token', response.token);
             this.router.navigate(['/']);
@@ -64,7 +64,7 @@ export class AuthService {
 
     login(email: string, password: string){
         const authData: AuthData = { email: email, password: password};
-        this.http.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + '/login', authData)
+        this.http.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + '/users/login', authData)
         .subscribe(response => {
             const token = response.token;
             this.token = token;

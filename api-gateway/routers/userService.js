@@ -3,11 +3,19 @@ var router = express.Router()
 const apiAdapter = require('./apiAdapter')
 const isAuthorized = require('../controller/requestAuthenticator')
 
-const BASE_URL = 'http://localhost:8088'
+const BASE_URL = 'http://localhost:3002'
 const api = apiAdapter(BASE_URL)
 
-router.get('/users', isAuthorized, (req, res) => {
-  api.get(req.path).then(resp => {
+router.post('/users/login', isAuthorized, (req, res) => {
+  console.log('login', req);
+  api.post(req.path, req.body).then(resp => {
+    res.send(resp.data)
+  })
+})
+
+router.post('/users/register',  (req, res) => {
+  console.log('register', req.body);
+  api.post(req.path, req.body).then(resp => {
     res.send(resp.data)
   })
 })

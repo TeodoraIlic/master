@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router()
 const apiAdapter = require('./apiAdapter')
 const isAuthorized = require('../controller/requestAuthenticator')
+const multer  = require('multer')
+const upload = multer({dest: "../uploads/"})
 
 const BASE_URL = 'http://localhost:3001'
 const api = apiAdapter(BASE_URL)
@@ -18,8 +20,22 @@ router.get('/posts/:id', isAuthorized, (req, res) => {
   })
 })
 
-router.post('/posts', isAuthorized, (req, res) => {
-  api.post(req.path, req.body).then(resp => {
+router.post('/posts', isAuthorized, upload.single('image'), async (req, res) => {
+  const data = {
+    ...req.body,
+    imagePath: req.file.path
+  }
+  api.post(req.path, data).then(resp => {
+    res.send(resp.data)
+  })
+})
+
+router.put('/posts/:id', isAuthorized, upload.single('image'), async (req, res) => {
+  const data = {
+    ...req.body,
+    imagePath: req.file.path
+  }
+  api.post(req.path, data).then(resp => {
     res.send(resp.data)
   })
 })

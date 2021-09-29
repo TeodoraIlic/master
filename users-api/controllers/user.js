@@ -7,7 +7,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'nodejs-users'
+    database: 'master-users'
 });
 
 db.connect( (error) => {
@@ -19,9 +19,10 @@ db.connect( (error) => {
 });
 
 exports.createUser = (req, res, next) =>{
+    console.log(req.body);
     //treba odraditi situaciju kada vec postoji email u bazi i vratiti odgovarajucuporuku
     bcrypt.hash(req.body.password,10).then(hash => {
-        const name = req.body.name
+        const name = req.body.name ? req.body.name : "Anonimous"
         const email = req.body.email
         const password = hash
         

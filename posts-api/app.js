@@ -8,7 +8,7 @@ const app = express();
 
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useCreateIndex', true);
-mongoose.connect("mongodb://localhost/mystore",{ useNewUrlParser: true })
+mongoose.connect("mongodb://localhost/mystore", { useNewUrlParser: true })
     .then(()=>{
         console.log("Connected to database");
     })
@@ -16,10 +16,8 @@ mongoose.connect("mongodb://localhost/mystore",{ useNewUrlParser: true })
         console.log("Connection failed!"); 
     });
 
-
-
-
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false,
+                                limit: '100mb' }));
 app.use(express.json());
 //any request that is targeting /images folder, will be allowed to continue and
 //fetch their fiels from there

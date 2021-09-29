@@ -2,7 +2,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
     <!-- #postForm="ngForm" ovo znaci da je u postForm stavljena vrednost Angular objekta ngForm -->
-   <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+   <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading" action="/posts" method="post" enctype="multipart/form-data">
     <mat-form-field>
         <input 
         matInput 
