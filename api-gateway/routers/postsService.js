@@ -20,6 +20,12 @@ router.get('/posts/:id', isAuthorized, (req, res) => {
   })
 })
 
+router.delete('/posts/:id', isAuthorized, (req, res) => {
+  api.delete(req.path).then(resp => {
+    res.send(resp.data)
+  })
+})
+
 router.post('/posts', isAuthorized, upload.single('image'), async (req, res) => {
   const data = {
     ...req.body,

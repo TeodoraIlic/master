@@ -42,6 +42,7 @@ exports.createUser = (req, res, next) =>{
 }
 
 exports.signInUser = (req, res, next) => {
+    console.log(req.body);
     let fetchedUser;
     const email = req.body.email;
 
@@ -56,7 +57,7 @@ exports.signInUser = (req, res, next) => {
             })
         } 
 
-        if(!fetchedUser.email){
+        if(!fetchedUser?.email){
             return res.status(401).json({
                 message: "Auth failed!"
             })

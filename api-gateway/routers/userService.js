@@ -6,17 +6,18 @@ const isAuthorized = require('../controller/requestAuthenticator')
 const BASE_URL = 'http://localhost:3002'
 const api = apiAdapter(BASE_URL)
 
-router.post('/users/login', isAuthorized, (req, res) => {
-  console.log('login', req);
+router.post('/users/login', (req, res) => {
+  console.log('login', req.body);
   api.post(req.path, req.body).then(resp => {
     res.send(resp.data)
   })
 })
 
-router.post('/users/register',  (req, res) => {
+router.post('/users/register', (req, res) => {
   console.log('register', req.body);
   api.post(req.path, req.body).then(resp => {
     res.send(resp.data)
+    console.log(res.data)
   })
 })
 
