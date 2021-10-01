@@ -37,11 +37,12 @@ router.post('/posts', isAuthorized, upload.single('image'), async (req, res) => 
 })
 
 router.put('/posts/:id', isAuthorized, upload.single('image'), async (req, res) => {
+  console.log("trying to update post");
   const data = {
     ...req.body,
     imagePath: req.file.path
   }
-  api.post(req.path, data).then(resp => {
+  api.put(req.path, data).then(resp => {
     res.send(resp.data)
   })
 })

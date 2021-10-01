@@ -30,7 +30,7 @@ exports.createPost = (req, res, next) =>{
 }
 
 exports.updatePost = (req, res, next)=>{
-   
+   console.log(req.body);
     var imagePath = req.body.imagePath;
     if(req.file){
         const url = req.protocol + '://' + req.get('host');
@@ -41,7 +41,7 @@ exports.updatePost = (req, res, next)=>{
         title: req.body.title,
         content: req.body.content,
         imagePath: imagePath,
-        creator: req.userData.userId
+        creator: req.userData?.userId
     })
  
     Post.updateOne({_id: req.params.id}, post).then(result =>{
