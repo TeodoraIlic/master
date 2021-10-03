@@ -1,3 +1,4 @@
+//should be deleted
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 //validator is a plugin that will add an extra hook that checks your data 

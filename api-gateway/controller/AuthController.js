@@ -9,7 +9,6 @@ var config = require('../config');
 router.post('/register', (req, res) => {
   let hashedPassword = bcrypt.hashSync(req.body.password, 8)
   console.log('user is registred');
-  console.log(hashedPassword)
   User.create({
     name: req.body.name,
     email: req.body.email,

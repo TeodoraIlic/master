@@ -1,15 +1,18 @@
 var express = require('express');
 var app = express();
 var router = require('./routers/router')
-var bodyParser = require('body-parser');
-var db = require('./db')
+var db = require('./db');
+const path = require('path');
 
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({
+    extended: false,
+  }));
+
 //any request that is targeting /images folder, will be allowed to continue and
 //fetch their fiels from there
-// app.use("/images", express.static(path.join("./images")));
+app.use("/images", express.static(path.join("./images")));
 app.use((req, res, next)=>{
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", 

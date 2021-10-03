@@ -1,15 +1,11 @@
 const express = require("express");
-
-const userController = require("../controllers/post");
-const extractFile = require("../middleware/file"); 
-
-
+const postController = require("../controllers/post");
 const router = express.Router();
 
-router.post('',
-    extractFile,
-    userController.createPost
-);
+// router.post('',
+//     extractFile,
+//     postController.createPost
+// );
 
 // TODO: complete this object/class
 
@@ -31,10 +27,11 @@ function PaginationHelper(collection, itemsPerPage){
      return this.pageCount;
   }
 
-router.get('', userController.getPosts);
-router.get('/:id', userController.getPost);
-router.put("/:id", extractFile, userController.updatePost)
-router.delete("/:id", userController.deletePost)
+router.get('', postController.getPosts);
+router.get('/:id', postController.getPost);
+router.post('', postController.createPost);
+router.put("/:id", postController.updatePost)
+router.delete("/:id", postController.deletePost)
 
 //we wxports whole router object, not methods od object(that why we dont have {})
 module.exports = router;

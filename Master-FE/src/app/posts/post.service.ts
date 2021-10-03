@@ -79,20 +79,22 @@ export class PostService{
     updatePost(id: string, title: string, content: string, image: File|string) {
         let postData: Post | FormData;
         if(typeof(image) === 'object'){
-            const postData = new FormData();
+            postData = new FormData();
             postData.append('id', id);
             postData.append('title', title);
             postData.append('content', content);
             postData.append('image', image, title);
         } else {
-            const postData: Post = {
-                id: id,
-                title: title,
-                content: content,
-                imagePath: image,
-                creator: null
-            }
+                postData = {
+                    id: id,
+                    title: title,
+                    content: content,
+                    imagePath: image,
+                    creator: null
+                }
         }
+        console.log("update post");
+        
         this.http.put(BACKEND_URL + id, postData).subscribe(res =>
             {//i dont need this anymore, becouse i navigate to 
             //first page where it will fetch the latest version anyways 
@@ -108,6 +110,8 @@ export class PostService{
                 // this.posts = updatedPost;
                 // this.posts = updatedPost;
                 // this.postsUpdated.next([...this.posts]);
+                console.log(res);
+                
                 this.router.navigate(['/']);
 
             }

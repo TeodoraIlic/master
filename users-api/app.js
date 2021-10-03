@@ -3,6 +3,10 @@ const express = require('express');
 const usersRoutes = require('./routes/user');
 
 const app = express();
+app.use((req, res, next) => {
+    console.log("Called: ", req.path)
+    next()
+})
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -17,5 +21,5 @@ app.use((req, res, next)=>{
     next();
 });
 
-app.use('/user/', usersRoutes)
+app.use('/users', usersRoutes)
 module.exports = app;
