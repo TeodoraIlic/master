@@ -7,6 +7,7 @@ import { sideBarItems } from "../../../mocks/side-bar.mock";
   styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit {
+  //TO DO: get services from DB
   services = sideBarItems;
   constructor() {}
 

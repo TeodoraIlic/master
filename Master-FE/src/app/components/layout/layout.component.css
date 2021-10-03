@@ -5,6 +5,7 @@
 .panel {
   overflow: auto;
   height: 600px;
+  width: 100%;
 }
 
 .side-bar {

@@ -1,19 +1,33 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="posts.length>0 && !isLoading">
-    <mat-expansion-panel *ngFor="let post of posts">
-        <mat-expansion-panel-header>
-            {{post.title}}
-        </mat-expansion-panel-header>
-        <div class="post-image">
-            <img [src]="post.imagePath" [alt]="post.title">
-        </div>
-        <p>{{post.content}}</p>
-       
-        <mat-action-row *ngIf="userIsAuthenticated && userId === post.creator">
-            <a mat-button color="accent" [routerLink]="['/edit', post.id]">Edit</a>
-            <button mat-button color="warn" (click)="onDelete(post.id)">Delete</button>
-        </mat-action-row>
-    </mat-expansion-panel>
-</mat-accordion>
-<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangePage($event)"  *ngIf="posts.length>0"></mat-paginator>
-<p class="mat-body-1 info-text" *ngIf="!posts.length">No post yet!</p>
+<section class="tabs">
+  <article
+    *ngFor="let post of posts"
+    role="tabpanel"
+    class="tabpanel"
+    [id]="post.id"
+    [hidden]="isHidden(post.id)"
+  >
+    <div class="field-row">
+      <label for="text21">Title: </label>
+      <input id="text21" type="text" [value]="post.title" />
+    </div>
+    <div class="field-row">
+      <label for="text21">Description: </label>
+      <input id="text21" type="text" [value]="post.content" />
+    </div>
+    <div class="field-row-stacked" style="width: 400px">
+      <label for="text24">API documentation: </label>
+      <textarea id="text24" rows="8"></textarea>
+    </div>
+  </article>
+
+  <menu role="tablist" aria-label="Tabs Template">
+    <button
+      *ngFor="let post of posts"
+      role="tab"
+      [attr.aria-controls]="post.id"
+      [attr.aria-selected]="isHidden(post.id)"
+    >
+      {{ post.title }}
+    </button>
+  </menu>
+</section>

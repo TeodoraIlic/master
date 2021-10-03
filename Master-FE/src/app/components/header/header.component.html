@@ -1,13 +1,47 @@
 <div class="title-bar">
   <div class="title-bar-text">TeIsTool</div>
-  <div class="title-bar-controls">
-    <button aria-label="Help"></button>
-  </div>
 </div>
-<div class="title-bar tool-bar">
-  <div class="title-bar-controls">
-    <button>File</button>
-    <button>Edit</button>
-    <button>Tools</button>
-  </div>
-</div>
+<ul role="menubar">
+  <li role="menuitem" tabindex="0" aria-haspopup="true">
+    File
+    <ul role="menu">
+      <li role="menuitem"><a href="#menu">Open</a></li>
+      <li role="menuitem"><a href="#menu">Save</a></li>
+      <li role="menuitem"><a href="#menu">Save As...</a></li>
+      <li role="menuitem"><a href="#menu">Exit</a></li>
+    </ul>
+  </li>
+  <li role="menuitem" tabindex="0" aria-haspopup="true">
+    Edit
+    <ul role="menu">
+      <li role="menuitem"><a href="#menu">Undo</a></li>
+      <li role="menuitem"><a href="#menu">Copy</a></li>
+      <li role="menuitem"><a href="#menu">Cut</a></li>
+      <li role="menuitem"><a href="#menu">Paste</a></li>
+      <li role="menuitem"><a href="#menu">Delete</a></li>
+      <li role="menuitem"><a href="#menu">Find...</a></li>
+      <li role="menuitem"><a href="#menu">Replace...</a></li>
+      <li role="menuitem"><a href="#menu">Go to...</a></li>
+    </ul>
+  </li>
+  <li role="menuitem" tabindex="0" aria-haspopup="true">
+    View
+    <ul role="menu">
+      <li role="menuitem" tabindex="0" aria-haspopup="true">
+        Zoom
+        <ul role="menu">
+          <li role="menuitem"><button>Zoom In</button></li>
+          <li role="menuitem"><button>Zoom Out</button></li>
+        </ul>
+      </li>
+      <li role="menuitem"><a href="#menu">Status Bar</a></li>
+    </ul>
+  </li>
+  <li role="menuitem" tabindex="0" aria-haspopup="true">
+    Help
+    <ul role="menu">
+      <li role="menuitem"><a href="#menu">View Help</a></li>
+      <li role="menuitem"><a href="#menu">About</a></li>
+    </ul>
+  </li>
+</ul>
