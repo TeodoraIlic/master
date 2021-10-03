@@ -1,17 +1,20 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ErrorComponent } from './error/error.component';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpErrorResponse,
+} from "@angular/common/http";
+import { catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
+import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { ErrorComponent } from "./components/error/error.component";
 
 @Injectable()
-export class ErrorInterceptor implements HttpInterceptor{
+export class ErrorInterceptor implements HttpInterceptor {
+  constructor(private dialog: MatDialog) {}
 
-    constructor(private dialog: MatDialog){}
-  
-    
-    intercept(req: HttpRequest<any>, next: HttpHandler){
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
     // I just want to return next händler request
     // but now we can actually also listen to the response there.
     // I don't want to edit the request,
@@ -21,18 +24,18 @@ export class ErrorInterceptor implements HttpInterceptor{
     // you need to import from rxjs/operators. Catch error as the name suggests is an operator
     // that allows us to handle errors emitted in this stream
     // and since this is for an HTTP request, we'll be talking about HTTP errors.
-    
-       return next.handle(req).pipe(
-           catchError((error: HttpErrorResponse) => {
-            let errorMessage = "An unkonown error ocurred!"   
-            if(error.error.message){
-                errorMessage = error.error.message;
-            }
-            this.dialog.open(ErrorComponent, {
-                data: {message: errorMessage}
-            });
-            return throwError(error);
-           })
-       );
-    }
+
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = "An unkonown error ocurred!";
+        if (error.error.message) {
+          errorMessage = error.error.message;
+        }
+        this.dialog.open(ErrorComponent, {
+          data: { message: errorMessage },
+        });
+        return throwError(error);
+      })
+    );
+  }
 }

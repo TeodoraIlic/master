@@ -1,0 +1,26 @@
+<section class="tabs" style="max-width: 500px">
+  <menu role="tablist" aria-label="Sample Tabs">
+    <button role="tab" aria-selected="true" aria-controls="tab-A">
+      Available Services
+    </button>
+    <button role="tab" aria-controls="tab-B">My Services</button>
+  </menu>
+  <!-- the tab content -->
+  <article role="tabpanel" class="tabpanel" id="tab-A">
+    <ul class="tree-view">
+      <li *ngFor="let service of services">
+        <details>
+          <summary>{{ service.name }}</summary>
+          <ul>
+            <li *ngFor="let item of service.items">{{ item }}</li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </article>
+
+  <article role="tabpanel" class="tabpanel" hidden id="tab-B">
+    <h3>More...</h3>
+    <p>This tab contains a GroupBox</p>
+  </article>
+</section>
