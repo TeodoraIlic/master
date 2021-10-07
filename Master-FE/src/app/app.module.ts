@@ -16,7 +16,7 @@ import { LayoutComponent } from "./components/layout/layout.component";
 import { SideBarComponent } from "./components/side-bar/side-bar.component";
 import { AuthModule } from "./auth/auth.module";
 import { FooterComponent } from "./components/footer/footer.component";
-import { ContextMenuModule } from "@ctrl/ngx-rightclick";
+
 @NgModule({
   declarations: [
     AppComponent,

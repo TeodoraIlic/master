@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
 import { Subscription } from "rxjs";
+import { PostService } from "src/app/posts/post.service";
 
 @Component({
   selector: "app-header",
@@ -10,7 +11,10 @@ import { Subscription } from "rxjs";
 export class HeaderComponent implements OnInit {
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private postService: PostService
+  ) {}
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
@@ -24,6 +28,10 @@ export class HeaderComponent implements OnInit {
   }
   onLogout() {
     this.authService.logout();
+  }
+
+  onSave() {
+    this.postService.formSaved.next();
   }
 
   ngOnDestroy() {
