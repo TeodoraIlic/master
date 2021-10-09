@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const apiAdapter = require("./apiAdapter");
 const isAuthorized = require("../controller/requestAuthenticator");
+const checkAuth = require('../middleware/check-auth');
 const multer = require("multer");
 const upload = multer({ dest: "../uploads/" });
 
@@ -26,10 +27,12 @@ router.delete("/posts/:id", isAuthorized, (req, res) => {
   });
 });
 
-router.post("/posts", isAuthorized, upload.single("file"), async (req, res) => {
+router.post("/posts", checkAuth, isAuthorized, upload.single("file"), async (req, res) => {
+  console.log("userId", req.userData.userId);
   const data = {
     ...req.body,
     imagePath: req.file?.path,
+    userId: req.userData.userId
   };
   api.post(req.path, data).then((resp) => {
     res.send(resp.data);
@@ -38,6 +41,7 @@ router.post("/posts", isAuthorized, upload.single("file"), async (req, res) => {
 
 router.put(
   "/posts/:id",
+  checkAuth,
   isAuthorized,
   upload.single("file"),
   async (req, res) => {
@@ -45,6 +49,7 @@ router.put(
     const data = {
       ...req.body,
       imagePath: req.file.path,
+      userId: req.userData.userId
     };
     api.put(req.path, data).then((resp) => {
       res.send(resp.data);

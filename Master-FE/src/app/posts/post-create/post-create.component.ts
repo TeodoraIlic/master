@@ -40,11 +40,13 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     this.postSaveSub = this.postService.formSaved.subscribe(() => {
       this.onSavePost();
     });
+
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {
         this.isLoading = false;
       });
+
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)],

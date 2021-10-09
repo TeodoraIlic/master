@@ -42,7 +42,7 @@ exports.createUser = (req, res, next) =>{
 }
 
 exports.signInUser = (req, res, next) => {
-    console.log(req.body);
+    console.log("signInUser-------------");
     let fetchedUser;
     const email = req.body.email;
 
@@ -70,12 +70,14 @@ exports.signInUser = (req, res, next) => {
             })
         }
 
-        const token = jwt.sign({email: fetchedUser.email}, 
+        const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 
                                 "secret_this_should_be_longer",
                                  {expiresIn: "1h"});
+        console.log("Isidora pogledaj ovde ------", fetchedUser);
         res.status(200).json({
             token: token,
-            expiresIn: 3600
+            expiresIn: 3600,
+            userId: fetchedUser._id
         });
     })
 

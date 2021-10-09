@@ -1,13 +1,18 @@
 <div class="title-bar">
   <div class="title-bar-text"><a routerLink="/">TeIsTool</a></div>
-  <a routerLink="/auth/signup"><button>Register</button></a>
-  <a routerLink="/auth/login"><button>Login</button></a>
-  <button (click)="onLogout()">Logout</button>
+  <div style="float: right;">
+    <a routerLink="/auth/signup"><button style="margin: 2px;">Register</button></a>
+    <a routerLink="/auth/login"><button style="margin: 2px;">Login</button></a>
+    <button (click)="onLogout()" style="margin: 2px;">Logout</button>
+  </div>
 </div>
-<ul role="menubar">
-  <li role="menuitem" tabindex="0" aria-haspopup="true">Create</li>
-  <li role="menuitem" tabindex="0" aria-haspopup="true">Edit</li>
-  <li role="menuitem" tabindex="0" aria-haspopup="true" (click)="onSave()">
-    Save
-  </li>
-</ul>
+<div *ngIf="userIsAuthenticated">
+  <ul role="menubar">
+    <li role="menuitem" tabindex="0" aria-haspopup="true">Create</li>
+    <li role="menuitem" tabindex="0" aria-haspopup="true">Edit</li>
+    <li role="menuitem" tabindex="0" aria-haspopup="true" (click)="onSave()">
+      Save
+    </li>
+  </ul>
+</div>
+

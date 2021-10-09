@@ -9,6 +9,8 @@ import { PostService } from "src/app/posts/post.service";
   styleUrls: ["./header.component.css"],
 })
 export class HeaderComponent implements OnInit {
+  userId: string;
+  postCreatorId: string;
   userIsAuthenticated = false;
   private authListenerSubs: Subscription;
   constructor(
@@ -19,12 +21,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
     console.log(this.userIsAuthenticated);
-
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
       });
+    this.userId = this.authService.getUserId();
+    
   }
   onLogout() {
     this.authService.logout();
