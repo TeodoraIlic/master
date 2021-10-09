@@ -5,9 +5,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AngularMaterialModule } from "../angular-material.module";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
+import { PostListContainer } from "./containers/post-list.container";
 
 @NgModule({
-  declarations: [PostListComponent, PostCreateComponent],
+  declarations: [PostListComponent, PostCreateComponent, PostListContainer],
   imports: [
     CommonModule,
     ReactiveFormsModule,

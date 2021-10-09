@@ -11,7 +11,7 @@ const BACKEND_URL = environment.apiUrl + "/posts/";
 
 @Injectable({ providedIn: "root" })
 export class PostService {
-  private posts: Post[] = [];
+  public posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
   formSaved = new Subject();
 

@@ -9,15 +9,15 @@
   <article role="tabpanel" class="tabpanel" id="tab-A">
     <ul class="tree-view">
       <li *ngFor="let service of availableServices">
-        {{ service.title }}
+        <a [routerLink]="service.id">{{ service.title }}</a>
       </li>
     </ul>
   </article>
 
   <article role="tabpanel" class="tabpanel" hidden id="tab-B">
     <ul class="tree-view">
-      <li *ngFor="let service of myServices">
-        {{ service.title }}
+      <li *ngFor="let myService of myServices">
+        <a [routerLink]="myService.id">{{ myService.title }}</a>
       </li>
     </ul>
   </article>
