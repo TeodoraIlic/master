@@ -1,12 +1,13 @@
 const Post = require("../models/post");
 
 exports.createPost = (req, res, next) => {
+
   const url = req.protocol + "://" + req.get("host");
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
     file: req.body.file,
-    creator: req.userData?.userId,
+    creator: req.body.userId,
   });
   post
     .save()
