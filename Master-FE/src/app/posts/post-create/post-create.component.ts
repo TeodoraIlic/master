@@ -24,6 +24,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   form: FormGroup;
   post: Post;
   imagePreview: string;
+  isAuthenticated = false;
 
   private mode = "create";
   private postId: string;
@@ -40,11 +41,16 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     this.postSaveSub = this.postService.formSaved.subscribe(() => {
       this.onSavePost();
     });
+
+    this.isAuthenticated = this.authService.getIsAuth();
+    console.log("looged in",this.isAuthenticated);
+    
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {
         this.isLoading = false;
       });
+
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)],

@@ -54,7 +54,7 @@ export class SideBarComponent implements OnInit {
           (post) => post.creator !== this.userId
         );
         this.myServices = postData.posts.filter(
-          (post) => post.creator == this.userId
+          (post) => post.creator === this.userId && post.creator !== undefined
         );
       });
     // IMPORTANT!!!!
