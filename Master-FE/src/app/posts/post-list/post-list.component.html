@@ -1,6 +1,6 @@
 <section class="tabs" *ngIf="(posts$ | async) && (posts$ | async)?.length">
   <article
-    *ngFor="let post of posts$ | async"
+    *ngFor="let post of posts$[0][0] | async"
     role="tabpanel"
     class="tabpanel"
     [id]="post.id"
@@ -21,7 +21,7 @@
 
   <menu role="tablist" aria-label="Tabs Template">
     <button
-      *ngFor="let post of posts$ | async"
+      *ngFor="let post of posts$[0][0] | async"
       role="tab"
       [attr.aria-controls]="post.id"
       [attr.aria-selected]="isHidden(post.id)"
