@@ -19,9 +19,7 @@ export class PostService {
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pageSize=${postsPerPage}&page=${currentPage}`;
-    // return [...this.posts];
-    //the unsubscription from this will be added by Angular,
-    // so I don't need do unsubscribe by my self.
+
     this.http
       .get<{ message: string; posts: any; maxPosts: number }>(
         BACKEND_URL + queryParams
@@ -50,6 +48,7 @@ export class PostService {
         });
       });
   }
+
   getPost(id: string) {
     return this.http.get<{
       _id: string;
@@ -63,30 +62,20 @@ export class PostService {
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
-  addPost(title: string, content: string, file?: File) {
+
+  addPost(title: string, content: string, file: File) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
     postData.append("file", file);
+  
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
-        console.log(responseData);
-        //i dont need this anymore, becouse i navigate to
-        //first page where it will fetch the latest version anyways
-        // const post = {
-        //     id: responseData.post.id,
-        //     title: title,
-        //     content: content,
-        //     imagePath: responseData.post.imagePath
-        // }
-        // this.posts.push(post);
-        //     //this pushes copy of my posts after update
-        //     //this will be emmited after I add u post
-        // this.postsUpdated.next([...this.posts]);
         this.router.navigate(["/"]);
       });
   }
+
   updatePost(id: string, title: string, content: string, file?: File | string) {
     let postData: Post | FormData;
     if (typeof file === "object") {
@@ -94,7 +83,7 @@ export class PostService {
       postData.append("id", id);
       postData.append("title", title);
       postData.append("content", content);
-      //   postData.append("image", image, title);
+      postData.append("file", file, title);
     } else {
       postData = {
         id: id,
@@ -104,28 +93,12 @@ export class PostService {
         creator: null,
       };
     }
-    console.log("update post");
 
     this.http.put(BACKEND_URL + id, postData).subscribe((res) => {
-      //i dont need this anymore, becouse i navigate to
-      //first page where it will fetch the latest version anyways
-      // const updatedPost = [...this.posts];
-      // const oldPostIndex = updatedPost.findIndex(p => p.id === id);
-      // const post: Post = {
-      //     id: id,
-      //     title: title,
-      //     content: content,
-      //     imagePath: ""
-      // }
-      // updatedPost[oldPostIndex] = post;
-      // this.posts = updatedPost;
-      // this.posts = updatedPost;
-      // this.postsUpdated.next([...this.posts]);
-      console.log(res);
-
       this.router.navigate(["/"]);
     });
   }
+
   deletePost(postId: string) {
     return this.http.delete(BACKEND_URL + postId);
   }
