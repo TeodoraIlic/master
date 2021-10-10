@@ -34,6 +34,7 @@ export class PostService {
                 id: post._id,
                 imagePath: post.imagePath,
                 creator: post.creator,
+                servicePath: post.servicePath
               };
             }),
             maxPosts: postData.maxPosts,
@@ -56,6 +57,7 @@ export class PostService {
       content: string;
       filePath: string;
       creator: string;
+      servicePath: string
     }>(BACKEND_URL + id);
   }
 
@@ -63,12 +65,13 @@ export class PostService {
     return this.postsUpdated.asObservable();
   }
 
-  addPost(title: string, content: string, file: File) {
+  addPost(title: string, content: string, servicePath: string, file: File) {
     const postData = new FormData();
     postData.append("title", title);
     postData.append("content", content);
+    postData.append("servicePath", servicePath);
     postData.append("file", file);
-  
+    
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
@@ -76,7 +79,7 @@ export class PostService {
       });
   }
 
-  updatePost(id: string, title: string, content: string, file?: File | string) {
+  updatePost(id: string, title: string, content: string, servicePath: string, file: File | string) {
     let postData: Post | FormData;
     if (typeof file === "object") {
       postData = new FormData();
@@ -84,6 +87,7 @@ export class PostService {
       postData.append("title", title);
       postData.append("content", content);
       postData.append("file", file, title);
+      postData.append("servicePath", servicePath);
     } else {
       postData = {
         id: id,
@@ -91,6 +95,7 @@ export class PostService {
         content: content,
         filePath: file,
         creator: null,
+        servicePath: servicePath
       };
     }
 

@@ -20,6 +20,17 @@
           >Please enter a post title</mat-error
         >
       </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="servicePath"
+          placeholder="Service Path"
+        />
+        <mat-error *ngIf="form.get('servicePath').invalid"
+          >Please enter a service path</mat-error
+        >
+      </mat-form-field>
       <div>
         <button (click)="filePicker.click()">Upload YAML file</button>
         <input

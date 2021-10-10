@@ -28,7 +28,7 @@ router.delete("/posts/:id", isAuthorized, (req, res) => {
 });
 
 router.post("/posts", checkAuth, isAuthorized, upload.single("file"), async (req, res) => {
-  console.log("userId", req.userData.userId);
+  
   const data = {
     ...req.body,
     imagePath: req.file?.path,
@@ -45,7 +45,7 @@ router.put(
   isAuthorized,
   upload.single("file"),
   async (req, res) => {
-    console.log("trying to update post");
+    
     const data = {
       ...req.body,
       imagePath: req.file.path,
@@ -57,4 +57,4 @@ router.put(
   }
 );
 
-module.exports = router;
+module.exports = router

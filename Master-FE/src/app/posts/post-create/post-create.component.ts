@@ -57,6 +57,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       }),
       content: new FormControl(null, { validators: [Validators.required] }),
       file: new FormControl(null, {}),
+      servicePath: new FormControl(null, {validators: [Validators.required]}),
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
@@ -69,6 +70,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             content: postData.content,
             filePath: postData.filePath,
             creator: postData.creator,
+            servicePath: postData.servicePath
           };
         });
         //to prepopulate form, to override FormControls values
@@ -77,6 +79,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
           title: this.post.title,
           content: this.post.content,
           file: this.post.filePath,
+          servicePath: this.post.servicePath
         });
       } else {
         this.mode = "create";
@@ -101,6 +104,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
       this.postService.addPost(
         this.form.value.title,
         this.form.value.content,
+        this.form.value.servicePath,
         this.form.value.file
       );
     } else {
@@ -109,6 +113,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         this.postId,
         this.form.value.title,
         this.form.value.content,
+        this.form.value.servicePath,
         this.form.value.filePath
       );
     }
