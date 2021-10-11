@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
 import { Subscription } from "rxjs";
 import { PostService } from "src/app/posts/post.service";
+import { ActivatedRoute } from "@angular/router";
+import { Post } from "src/app/posts/post.model";
 
 @Component({
   selector: "app-header",
@@ -12,7 +14,9 @@ export class HeaderComponent implements OnInit {
   userId: string;
   postCreatorId: string;
   userIsAuthenticated = false;
+  selectedPost: Post;
   private authListenerSubs: Subscription;
+
   constructor(
     private authService: AuthService,
     private postService: PostService
@@ -20,17 +24,23 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
-    console.log(this.userIsAuthenticated);
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
       });
     this.userId = this.authService.getUserId();
-    
+    this.postService.selectedPost.subscribe((value) => {
+      this.selectedPost = value;
+      console.log(value);
+    });
   }
   onLogout() {
     this.authService.logout();
+  }
+
+  onDelete() {
+    this.postService.deletePost(this.selectedPost.id);
   }
 
   onSave() {

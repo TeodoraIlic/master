@@ -1,10 +1,5 @@
-<section class="tabs" *ngIf="(posts$ | async) && (posts$ | async)?.length">
-  <article
-    *ngFor="let post of posts$[0][0] | async"
-    role="tabpanel"
-    class="tabpanel"
-    [id]="post.id"
-  >
+<section class="tabs" *ngIf="post">
+  <article role="tabpanel" class="tabpanel" [id]="post.id">
     <div class="field-row">
       <label for="text21">Title: </label>
       <input id="text21" type="text" [value]="post.title" disabled />
@@ -13,19 +8,10 @@
       <label for="text21">Description: </label>
       <input id="text21" type="text" [value]="post.content" disabled />
     </div>
-    <div class="field-row-stacked" style="width: 400px">
-      <label for="text24">API documentation: </label>
-      <textarea id="text24" rows="8"></textarea>
-    </div>
   </article>
 
   <menu role="tablist" aria-label="Tabs Template">
-    <button
-      *ngFor="let post of posts$[0][0] | async"
-      role="tab"
-      [attr.aria-controls]="post.id"
-      [attr.aria-selected]="isHidden(post.id)"
-    >
+    <button role="tab" [attr.aria-selected]="true">
       {{ post.title }}
     </button>
   </menu>

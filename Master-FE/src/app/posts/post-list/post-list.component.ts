@@ -1,7 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from "@angular/core";
-import { PostService } from "../post.service";
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
+import { AfterViewInit, Component, Input } from "@angular/core";
 import { Post } from "../post.model";
 
 @Component({
@@ -10,9 +7,5 @@ import { Post } from "../post.model";
   styleUrls: ["./post-list.component.css"],
 })
 export class PostListComponent {
-  @Input() posts$: Observable<Post[]>;
-
-  isHidden(id) {
-    return id === "tab-1";
-  }
+  @Input() post: Post;
 }

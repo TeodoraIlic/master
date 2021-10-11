@@ -14,6 +14,7 @@ export class PostService {
   public posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
   formSaved = new Subject();
+  selectedPost = new Subject<Post>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -48,7 +49,9 @@ export class PostService {
         });
       });
   }
-
+  get getLocalPosts() {
+    return this.posts;
+  }
   getPost(id: string) {
     return this.http.get<{
       _id: string;
@@ -68,7 +71,7 @@ export class PostService {
     postData.append("title", title);
     postData.append("content", content);
     postData.append("file", file);
-  
+
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
@@ -100,6 +103,12 @@ export class PostService {
   }
 
   deletePost(postId: string) {
-    return this.http.delete(BACKEND_URL + postId);
+    return this.http.delete(BACKEND_URL + postId).subscribe((val) => {
+      this.postsUpdated.next({
+        posts: this.posts.filter((item) => item.id !== val),
+        postCount: 50,
+      });
+      this.getPosts(50, 1);
+    });
   }
 }

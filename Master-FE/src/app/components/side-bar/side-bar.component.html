@@ -3,7 +3,13 @@
     <button role="tab" aria-selected="true" aria-controls="tab-A">
       Available Services
     </button>
-    <button *ngIf="userIsAuthenticated" role="tab" aria-controls="tab-B">My Services</button>
+    <button
+      style.display="{{ userIsAuthenticated ? 'block' : 'none' }}"
+      role="tab"
+      aria-controls="tab-B"
+    >
+      My Services
+    </button>
   </menu>
   <!-- the tab content -->
   <article role="tabpanel" class="tabpanel" id="tab-A">
