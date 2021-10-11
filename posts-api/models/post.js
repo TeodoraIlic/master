@@ -6,6 +6,8 @@ const postSchema = mongoose.Schema({
   content: { type: String, require: true },
   filePath: { type: String, require: false },
   creator: { type: String, require: true },
+  servicePath: { type: String, require: true},
+  serviceName: { type: String, reguire: true}
 });
 
 //turn definition into model

@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/post');
+const serviceDescoveryRoutes = require('./routes/serviceDescovery');
 
 const app = express();
 
@@ -32,5 +33,5 @@ app.use((req, res, next)=>{
 });
 
 app.use('/posts/', postsRoutes);
-
+app.use('/posts/serviceDescovery', serviceDescoveryRoutes);
 module.exports = app;

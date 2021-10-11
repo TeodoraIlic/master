@@ -16,6 +16,7 @@
     "axios": "^0.21.4",
     "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
+    "http-proxy-middleware": "^2.0.1",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^6.0.0",
     "multer": "^1.4.3",
