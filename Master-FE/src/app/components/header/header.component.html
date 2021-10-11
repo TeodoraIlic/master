@@ -1,18 +1,51 @@
 <div class="title-bar">
   <div class="title-bar-text"><a routerLink="/">TeIsTool</a></div>
-  <div style="float: right;">
-    <a routerLink="/auth/signup" *ngIf="!userIsAuthenticated"><button style="margin: 2px;">Register</button></a>
-    <a routerLink="/auth/login" *ngIf="!userIsAuthenticated"><button style="margin: 2px;">Login</button></a>
-    <button *ngIf="userIsAuthenticated" (click)="onLogout()" style="margin: 2px;">Logout</button>
+  <div style="float: right">
+    <a routerLink="/auth/signup" *ngIf="!userIsAuthenticated"
+      ><button style="margin: 2px">Register</button></a
+    >
+    <a routerLink="/auth/login" *ngIf="!userIsAuthenticated"
+      ><button style="margin: 2px">Login</button></a
+    >
+    <button
+      *ngIf="userIsAuthenticated"
+      (click)="onLogout()"
+      style="margin: 2px"
+    >
+      Logout
+    </button>
   </div>
 </div>
 <div *ngIf="userIsAuthenticated">
   <ul role="menubar">
-    <li role="menuitem" tabindex="0" aria-haspopup="true">Create</li>
-    <li role="menuitem" tabindex="0" aria-haspopup="true">Edit</li>
-    <li role="menuitem" tabindex="0" aria-haspopup="true" (click)="onSave()">
+    <li role="menuitem" tabindex="0" aria-haspopup="true">
+      <a routerLink="create">Create</a>
+    </li>
+    <li
+      role="menuitem"
+      tabindex="0"
+      aria-haspopup="true"
+      ngClass="{{ !selectedPost ? 'disabled' : '' }}"
+    >
+      Edit
+    </li>
+    <li
+      role="menuitem"
+      tabindex="0"
+      aria-haspopup="true"
+      (click)="onSave()"
+      ngClass="{{ !selectedPost ? 'disabled' : '' }}"
+    >
       Save
+    </li>
+    <li
+      role="menuitem"
+      tabindex="0"
+      aria-haspopup="true"
+      ngClass="{{ !selectedPost ? 'disabled' : '' }}"
+      (click)="onDelete()"
+    >
+      Delete
     </li>
   </ul>
 </div>
-

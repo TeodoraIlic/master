@@ -5,3 +5,13 @@
 .title-bar {
   border-radius: 0 !important;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}

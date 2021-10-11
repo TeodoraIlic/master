@@ -1,32 +1,17 @@
-<section class="tabs">
-  <article
-    *ngFor="let post of posts"
-    role="tabpanel"
-    class="tabpanel"
-    [id]="post.id"
-    [hidden]="isHidden(post.id)"
-  >
+<section class="tabs" *ngIf="post">
+  <article role="tabpanel" class="tabpanel" [id]="post.id">
     <div class="field-row">
       <label for="text21">Title: </label>
-      <input id="text21" type="text" [value]="post.title" />
+      <input id="text21" type="text" [value]="post.title" disabled />
     </div>
     <div class="field-row">
       <label for="text21">Description: </label>
-      <input id="text21" type="text" [value]="post.content" />
-    </div>
-    <div class="field-row-stacked" style="width: 400px">
-      <label for="text24">API documentation: </label>
-      <textarea id="text24" rows="8"></textarea>
+      <input id="text21" type="text" [value]="post.content" disabled />
     </div>
   </article>
 
   <menu role="tablist" aria-label="Tabs Template">
-    <button
-      *ngFor="let post of posts"
-      role="tab"
-      [attr.aria-controls]="post.id"
-      [attr.aria-selected]="isHidden(post.id)"
-    >
+    <button role="tab" [attr.aria-selected]="true">
       {{ post.title }}
     </button>
   </menu>

@@ -38,13 +38,14 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log("NG ON INIT CREATE");
     this.postSaveSub = this.postService.formSaved.subscribe(() => {
       this.onSavePost();
     });
 
     this.isAuthenticated = this.authService.getIsAuth();
-    console.log("looged in",this.isAuthenticated);
-    
+    console.log("looged in", this.isAuthenticated);
+
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((authStatus) => {

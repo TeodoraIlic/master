@@ -1,9 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
 import { Post } from "src/app/posts/post.model";
 import { PostService } from "src/app/posts/post.service";
-import { sideBarItems } from "../../../mocks/side-bar.mock";
 
 @Component({
   selector: "app-side-bar",
@@ -11,7 +10,6 @@ import { sideBarItems } from "../../../mocks/side-bar.mock";
   styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit {
-  //TO DO: get services from DB
   availableServices: Post[] = [];
   myServices: Post[] = [];
   isLoading = false;
@@ -31,7 +29,6 @@ export class SideBarComponent implements OnInit {
   ngOnInit() {
     window.addEventListener("DOMContentLoaded", () => {
       const tabs = document.querySelectorAll('[role="tab"]');
-      const tabList = document.querySelector('[role="tablist"]');
 
       // Add a click event handler to each tab
       tabs.forEach((tab) => {
@@ -39,6 +36,7 @@ export class SideBarComponent implements OnInit {
       });
     });
     this.isLoading = true;
+
     //ovo je metod koji se izvrsava kada se kreira komponenta,
     //preporucuje se da se ovde izvrse osnovne inicijalizacije
     //this.posts = this.postServices.getPosts();
@@ -68,24 +66,13 @@ export class SideBarComponent implements OnInit {
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
+
         console.log(
           "user is authenticated",
           this.userIsAuthenticated,
           this.userId
         );
       });
-  }
-
-  onDelete(postId: string) {
-    this.isLoading = true;
-    this.postServices.deletePost(postId).subscribe(
-      () => {
-        this.postServices.getPosts(this.postsPerPage, this.currentPage);
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
   }
 
   ngOnDestroy() {

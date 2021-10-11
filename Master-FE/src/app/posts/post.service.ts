@@ -11,9 +11,10 @@ const BACKEND_URL = environment.apiUrl + "/posts/";
 
 @Injectable({ providedIn: "root" })
 export class PostService {
-  private posts: Post[] = [];
+  public posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
   formSaved = new Subject();
+  selectedPost = new Subject<Post>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -34,7 +35,7 @@ export class PostService {
                 id: post._id,
                 imagePath: post.imagePath,
                 creator: post.creator,
-                servicePath: post.servicePath
+                servicePath: post.servicePath,
               };
             }),
             maxPosts: postData.maxPosts,
@@ -49,7 +50,9 @@ export class PostService {
         });
       });
   }
-
+  get getLocalPosts() {
+    return this.posts;
+  }
   getPost(id: string) {
     return this.http.get<{
       _id: string;
@@ -57,7 +60,7 @@ export class PostService {
       content: string;
       filePath: string;
       creator: string;
-      servicePath: string
+      servicePath: string;
     }>(BACKEND_URL + id);
   }
 
@@ -71,7 +74,7 @@ export class PostService {
     postData.append("content", content);
     postData.append("servicePath", servicePath);
     postData.append("file", file);
-    
+
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
@@ -79,7 +82,13 @@ export class PostService {
       });
   }
 
-  updatePost(id: string, title: string, content: string, servicePath: string, file: File | string) {
+  updatePost(
+    id: string,
+    title: string,
+    content: string,
+    servicePath: string,
+    file: File | string
+  ) {
     let postData: Post | FormData;
     if (typeof file === "object") {
       postData = new FormData();
@@ -95,7 +104,7 @@ export class PostService {
         content: content,
         filePath: file,
         creator: null,
-        servicePath: servicePath
+        servicePath: servicePath,
       };
     }
 
@@ -105,6 +114,12 @@ export class PostService {
   }
 
   deletePost(postId: string) {
-    return this.http.delete(BACKEND_URL + postId);
+    return this.http.delete(BACKEND_URL + postId).subscribe((val) => {
+      this.postsUpdated.next({
+        posts: this.posts.filter((item) => item.id !== val),
+        postCount: 50,
+      });
+      this.getPosts(50, 1);
+    });
   }
 }
