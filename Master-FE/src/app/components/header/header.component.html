@@ -21,15 +21,19 @@
     <li role="menuitem" tabindex="0" aria-haspopup="true">
       <a routerLink="create">Create</a>
     </li>
-    <li role="menuitem" tabindex="0" aria-haspopup="true" (click)="onSave()">
+    <li 
+      ngClass="{{ selectedPost && selectedPost.creator !== userId ? 'disabled' : '' }}"
+      role="menuitem" 
+      tabindex="0" 
+      aria-haspopup="true" 
+      (click)="onSave()">
       Save
     </li>
-
     <li
       role="menuitem"
       tabindex="0"
       aria-haspopup="true"
-      ngClass="{{ !selectedPost ? 'disabled' : '' }}"
+      ngClass="{{ !selectedPost || selectedPost.creator !== userId ? 'disabled' : '' }}"
       (click)="onDelete()"
     >
       Delete
