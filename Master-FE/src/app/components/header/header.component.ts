@@ -32,7 +32,8 @@ export class HeaderComponent implements OnInit {
     this.userId = this.authService.getUserId();
     this.postService.selectedPost.subscribe((value) => {
       this.selectedPost = value;
-      console.log(value);
+      console.log("selected post",!!value, value);
+
     });
   }
   onLogout() {
@@ -50,4 +51,5 @@ export class HeaderComponent implements OnInit {
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
   }
+
 }
