@@ -3,11 +3,11 @@ const Post = require("../models/post");
 exports.createPost = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const serviceName = req.body.title.toLowerCase().split(" ").join("-");
-  console.log("Register service with name " + serviceName);
+
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
-    filePath: req.body.file,
+    filePath: req.body.filePath,
     creator: req.body.userId,
     servicePath: req.body.servicePath,
     serviceName: serviceName,
@@ -23,6 +23,7 @@ exports.createPost = (req, res, next) => {
           content: createdPost.content,
           serviceName: createdPost.serviceName,
           creator: createdPost.creator,
+          filePath: createdPost.filePath
         },
       });
     })
@@ -34,7 +35,7 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  const filePath = req.body.imagePath;
+  const filePath = req.body.filePath;
   const serviceName = req.body.title.toLowerCase().split(" ").join("-");
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");

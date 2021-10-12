@@ -96,6 +96,7 @@ exports.signInUser = (req, res, next) => {
                 message: "Auth failed!"
             })
         }
+        console.log("feched user id---", fetchedUser._id);
         // process.env.JWT_KEY
         const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 
                                 "secret_this_should_be_longer",
