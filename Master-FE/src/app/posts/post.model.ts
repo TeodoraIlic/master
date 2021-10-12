@@ -2,7 +2,7 @@ export interface Post {
   id: string;
   title: string;
   content: string;
-  filePath: string;
+  filePath?: string;
   creator: string;
   servicePath?: string;
   serviceName?: string;

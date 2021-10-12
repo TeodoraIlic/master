@@ -23,7 +23,7 @@
   <article role="tabpanel" class="tabpanel" hidden id="tab-B">
     <ul class="tree-view">
       <li *ngFor="let myService of myServices">
-        <a [routerLink]="'post/' + myService.id">{{ myService.title }}</a>
+        <a [routerLink]="'create/' + myService.id">{{ myService.title }}</a>
       </li>
     </ul>
   </article>
