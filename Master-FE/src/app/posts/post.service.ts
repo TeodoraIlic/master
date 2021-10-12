@@ -115,7 +115,7 @@ export class PostService {
       });
       this.selectedPost.next(null);
       this.getPosts(50, 1);
-      this.router.navigate(["/"]);
+      this.router.navigate(["create"]);
     });
   }
 }
