@@ -5,4 +5,5 @@ export interface Post {
   filePath: string;
   creator: string;
   servicePath?: string;
+  serviceName?: string;
 }
