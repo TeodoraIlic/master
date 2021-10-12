@@ -1,17 +1,16 @@
 const Post = require("../models/post");
 
 exports.createPost = (req, res, next) => {
-
   const url = req.protocol + "://" + req.get("host");
-  const serviceName = req.body.title.toLowerCase().split(' ').join('-');  
-  console.log("Register service with name "+serviceName);
+  const serviceName = req.body.title.toLowerCase().split(" ").join("-");
+  console.log("Register service with name " + serviceName);
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
     filePath: req.body.file,
     creator: req.body.userId,
     servicePath: req.body.servicePath,
-    serviceName: serviceName
+    serviceName: serviceName,
   });
   post
     .save()
@@ -23,7 +22,7 @@ exports.createPost = (req, res, next) => {
           title: createdPost.title,
           content: createdPost.content,
           serviceName: createdPost.serviceName,
-          creator: createdPost.creator
+          creator: createdPost.creator,
         },
       });
     })
@@ -36,7 +35,7 @@ exports.createPost = (req, res, next) => {
 
 exports.updatePost = (req, res, next) => {
   const filePath = req.body.imagePath;
-  const serviceName = req.body.title.toLowerCase().split(' ').join('-');
+  const serviceName = req.body.title.toLowerCase().split(" ").join("-");
   if (req.file) {
     const url = req.protocol + "://" + req.get("host");
     filePath = req.file.filePath;
@@ -48,7 +47,7 @@ exports.updatePost = (req, res, next) => {
     filePath: filePath,
     creator: req.body.userId,
     servicePath: req.body.servicePath,
-    serviceName: req.body.serviceName
+    serviceName: serviceName,
   });
 
   Post.updateOne({ _id: req.params.id }, post)
@@ -84,7 +83,13 @@ exports.getPosts = (req, res, next) => {
     .then((count) => {
       res.status(200).json({
         message: "Post fetched succesfully!",
-        posts: this.fetchedPosts,
+        posts: this.fetchedPosts.map((createdPost) => ({
+          id: createdPost._id,
+          title: createdPost.title,
+          content: createdPost.content,
+          serviceName: createdPost.serviceName,
+          creator: createdPost.creator,
+        })),
         maxPosts: count,
       });
     })
@@ -112,19 +117,20 @@ exports.getPost = (req, res, next) => {
 };
 
 exports.findPostByServiceName = (req, res, next) => {
-  console.log('FIND POST BY SERVICE NAME', req.params.serviceName);
-  Post.findOne({serviceName: req.params.serviceName}).then((post) => {
-    if (post) {
-      res.status(200).json(post);
-    } else {
-      res.status(404).json({ message: "Post not found!" });
-    }
-  })
-  .catch((error) => {
-    res.status(500).json({
-      message: "Fetching posts failed!",
+  console.log("FIND POST BY SERVICE NAME", req.params.serviceName);
+  Post.findOne({ serviceName: req.params.serviceName })
+    .then((post) => {
+      if (post) {
+        res.status(200).json(post);
+      } else {
+        res.status(404).json({ message: "Post not found!" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: "Fetching posts failed!",
+      });
     });
-  });
 };
 
 exports.deletePost = (req, res, next) => {
