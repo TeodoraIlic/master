@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AuthService } from "src/app/auth/auth.service";
 import { Post } from "../post.model";
-
+import { PostCreateComponent } from "../post-create/post-create.component";
 @Component({
   selector: "app-post-list",
   templateUrl: "./post-list.component.html",
@@ -10,12 +10,14 @@ import { Post } from "../post.model";
 export class PostListComponent implements OnInit {
   @Input() post: Post;
   isAuthenticated = false;
+  userId: string;
 
   constructor(public authService: AuthService) {
   }
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuth();
+    this.userId = this.authService.getUserId();
   }
 
   onCopy() {

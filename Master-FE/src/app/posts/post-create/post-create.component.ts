@@ -60,8 +60,10 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
+        
         this.postId = paramMap.get("postId");
         this.postService.getPost(this.postId).subscribe((postData) => {
+          console.log("Edit mode", postData);
           this.post = {
             id: postData._id,
             title: postData.title,
@@ -69,15 +71,17 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             filePath: postData.filePath,
             creator: postData.creator,
           };
+
+          this.form.setValue({
+            title: this.post.title,
+            content: this.post.content,
+            file: this.post?.filePath ? this.post?.filePath : "",
+            servicePath: this.post?.servicePath ? this.post?.servicePath : ""
+          });
         });
         //to prepopulate form, to override FormControls values
         //witch we set above(values are null at first, becouse first argument of FormControl)
-        this.form.setValue({
-          title: this.post.title,
-          content: this.post.content,
-          file: this.post.filePath,
-          servicePath: this.post.servicePath,
-        });
+        console.log("evo me ovde",this.post);
       } else {
         this.mode = "create";
         this.postId = null;
