@@ -1,7 +1,5 @@
 <div *ngIf="isAuthenticated;else notAuthenticated">
     <mat-card>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-
     <form
       [formGroup]="form"
       *ngIf="!isLoading"

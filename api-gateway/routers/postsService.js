@@ -31,7 +31,7 @@ router.post("/posts", checkAuth, isAuthorized, upload.single("file"), async (req
   
   const data = {
     ...req.body,
-    imagePath: req.file?.path,
+    filePath: req.file?.path,
     userId: req.userData.userId
   };
   api.post(req.path, data).then((resp) => {
@@ -48,7 +48,7 @@ router.put(
     
     const data = {
       ...req.body,
-      imagePath: req.file.path,
+      filePath: req.file.path,
       userId: req.userData.userId
     };
     api.put(req.path, data).then((resp) => {

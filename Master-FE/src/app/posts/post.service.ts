@@ -32,7 +32,7 @@ export class PostService {
                 title: post.title,
                 content: post.content,
                 id: post.id,
-                imagePath: post.imagePath,
+                filePath: post.filePath,
                 creator: post.creator,
                 servicePath: post.servicePath,
                 serviceName: post.serviceName
@@ -80,7 +80,7 @@ export class PostService {
       .subscribe((responseData) => {
         this.getPosts(50, 1);
         this.selectedPost.next(null);
-        this.router.navigate(["/"]);
+        this.router.navigate(["create"]);
       });
   }
 
@@ -103,7 +103,7 @@ export class PostService {
     }
 
     this.http.put(BACKEND_URL + id, postData).subscribe((res) => {
-      this.router.navigate(["/"]);
+      this.router.navigate(["create"]);
     });
   }
 

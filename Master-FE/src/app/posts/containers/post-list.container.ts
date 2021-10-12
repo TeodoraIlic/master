@@ -15,9 +15,11 @@ export class PostListContainer {
   constructor(public postService: PostService, public route: ActivatedRoute) {
     this.route.params.subscribe((val) => {
       if (this.postService.getLocalPosts?.length) {
+        
         this.selectedPost = this.postService.getLocalPosts.find(
           (item) => item.id === val.postId
         );
+        
         this.postService.selectedPost.next(this.selectedPost);
       }
     });

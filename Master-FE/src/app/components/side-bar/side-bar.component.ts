@@ -29,17 +29,14 @@ export class SideBarComponent implements OnInit {
   ngOnInit() {
     window.addEventListener("DOMContentLoaded", () => {
       const tabs = document.querySelectorAll('[role="tab"]');
-
       // Add a click event handler to each tab
       tabs.forEach((tab) => {
         tab.addEventListener("click", this.changeTabs);
       });
     });
-    this.isLoading = true;
 
-    //ovo je metod koji se izvrsava kada se kreira komponenta,
-    //preporucuje se da se ovde izvrse osnovne inicijalizacije
-    //this.posts = this.postServices.getPosts();
+
+    this.isLoading = true;
     this.postServices.getPosts(this.postsPerPage, this.currentPage);
     this.userId = this.authService.getUserId();
     this.postsSub = this.postServices
@@ -47,7 +44,7 @@ export class SideBarComponent implements OnInit {
       .subscribe((postData: { posts: Post[]; postCount: number }) => {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
-        console.log(postData, this.userId);
+        console.log("from side bar", postData);
         this.availableServices = postData.posts.filter(
           (post) => post.creator !== this.userId
         );
@@ -55,23 +52,14 @@ export class SideBarComponent implements OnInit {
           (post) => post.creator === this.userId && post.creator !== undefined
         );
       });
-    // IMPORTANT!!!!
-    // this subscription will live even if this component it's not
-    // part of the DOM. We dont wont that becouse thats provides
-    // memory leak. So we neew to unsubscribe whenever this component
-    // is destoyed.
+ 
+
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
         this.userId = this.authService.getUserId();
-
-        console.log(
-          "user is authenticated",
-          this.userIsAuthenticated,
-          this.userId
-        );
       });
   }
 
