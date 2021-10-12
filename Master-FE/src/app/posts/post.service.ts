@@ -8,7 +8,6 @@ import { environment } from "../../environments/environment";
 import { Post } from "./post.model";
 
 const BACKEND_URL = environment.apiUrl + "/posts/";
-
 @Injectable({ providedIn: "root" })
 export class PostService {
   public posts: Post[] = [];
@@ -32,7 +31,7 @@ export class PostService {
               return {
                 title: post.title,
                 content: post.content,
-                id: post._id,
+                id: post.id,
                 imagePath: post.imagePath,
                 creator: post.creator,
                 servicePath: post.servicePath,
@@ -78,17 +77,13 @@ export class PostService {
     this.http
       .post<{ message: string; post: Post }>(BACKEND_URL, postData)
       .subscribe((responseData) => {
+        this.getPosts(50, 1);
+        this.selectedPost.next(null);
         this.router.navigate(["/"]);
       });
   }
 
-  updatePost(
-    id: string,
-    title: string,
-    content: string,
-    servicePath: string,
-    file: File | string
-  ) {
+  updatePost(id: string, title: string, content: string, file: File | string) {
     let postData: Post | FormData;
     if (typeof file === "object") {
       postData = new FormData();
@@ -96,7 +91,6 @@ export class PostService {
       postData.append("title", title);
       postData.append("content", content);
       postData.append("file", file, title);
-      postData.append("servicePath", servicePath);
     } else {
       postData = {
         id: id,
@@ -104,7 +98,6 @@ export class PostService {
         content: content,
         filePath: file,
         creator: null,
-        servicePath: servicePath,
       };
     }
 
@@ -119,7 +112,9 @@ export class PostService {
         posts: this.posts.filter((item) => item.id !== val),
         postCount: 50,
       });
+      this.selectedPost.next(null);
       this.getPosts(50, 1);
+      this.router.navigate(["/"]);
     });
   }
 }

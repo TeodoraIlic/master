@@ -21,23 +21,10 @@
     <li role="menuitem" tabindex="0" aria-haspopup="true">
       <a routerLink="create">Create</a>
     </li>
-    <li
-      role="menuitem"
-      tabindex="0"
-      aria-haspopup="true"
-      ngClass="{{ !selectedPost ? 'disabled' : '' }}"
-    >
-      Edit
-    </li>
-    <li
-      role="menuitem"
-      tabindex="0"
-      aria-haspopup="true"
-      (click)="onSave()"
-      ngClass="{{ !selectedPost ? 'disabled' : '' }}"
-    >
+    <li role="menuitem" tabindex="0" aria-haspopup="true" (click)="onSave()">
       Save
     </li>
+
     <li
       role="menuitem"
       tabindex="0"

@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 import { PostService } from "../post.service";
 import { ActivatedRoute } from "@angular/router";
 import { Post } from "../post.model";
+
 @Component({
   template: `
     <app-post-list *ngIf="selectedPost" [post]="selectedPost"></app-post-list>
