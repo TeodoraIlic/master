@@ -1,18 +1,36 @@
-<section class="tabs" *ngIf="post">
-  <article role="tabpanel" class="tabpanel" [id]="post.id">
-    <div class="field-row">
-      <label for="text21">Title: </label>
-      <input id="text21" type="text" [value]="post.title" disabled />
-    </div>
-    <div class="field-row">
-      <label for="text21">Description: </label>
-      <input id="text21" type="text" [value]="post.content" disabled />
-    </div>
-  </article>
 
-  <menu role="tablist" aria-label="Tabs Template">
-    <button role="tab" [attr.aria-selected]="true">
-      {{ post.title }}
-    </button>
-  </menu>
-</section>
+
+<div *ngIf="isAuthenticated && post;else notAuthenticated">
+  <section class="tabs" *ngIf="post">
+    <article role="tabpanel" class="tabpanel" [id]="post.id">
+      <div class="field-row">
+        <label for="text21">Title: </label>
+        <input id="text21" type="text" [value]="post.title" disabled />
+      </div>
+      <div class="field-row">
+        <label for="text21">Description: </label>
+        <input id="text21" type="text" [value]="post.content" disabled />
+      </div>
+    </article>
+  
+    <menu role="tablist" aria-label="Tabs Template">
+      <button role="tab" [attr.aria-selected]="true">
+        {{ post.title }}
+      </button>
+    </menu>
+  </section>
+</div>
+<ng-template #notAuthenticated>
+  <div class="container">
+    <div class="item-a">
+      <h3>{{post.title}}</h3>
+      <h5>Service path</h5>
+      <div style="margin-left: 20px;">
+        <input type="text" [value]="post.serviceName" id="copyServicePath">
+        <button style="margin: 10px" (click)="onCopy()">Copy text</button>
+      </div>
+      <h5>Service descritpion</h5>
+      <p style="margin-left: 20px;">{{post.content}}</p>
+    </div>
+  </div>
+</ng-template>

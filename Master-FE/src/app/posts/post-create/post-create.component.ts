@@ -1,11 +1,9 @@
 import {
   Component,
-  EventEmitter,
-  Output,
   OnInit,
   OnDestroy,
 } from "@angular/core";
-import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Post } from "../post.model";
 import { PostService } from "../post.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
@@ -38,13 +36,13 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log("NG ON INIT CREATE");
+  
     this.postSaveSub = this.postService.formSaved.subscribe(() => {
       this.onSavePost();
     });
 
     this.isAuthenticated = this.authService.getIsAuth();
-    console.log("looged in", this.isAuthenticated);
+   
 
     this.authStatusSub = this.authService
       .getAuthStatusListener()

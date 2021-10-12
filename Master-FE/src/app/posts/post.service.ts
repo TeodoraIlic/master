@@ -36,6 +36,7 @@ export class PostService {
                 imagePath: post.imagePath,
                 creator: post.creator,
                 servicePath: post.servicePath,
+                serviceName: post.serviceName
               };
             }),
             maxPosts: postData.maxPosts,
