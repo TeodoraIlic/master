@@ -16,6 +16,8 @@ import { LayoutComponent } from "./components/layout/layout.component";
 import { SideBarComponent } from "./components/side-bar/side-bar.component";
 import { AuthModule } from "./auth/auth.module";
 import { FooterComponent } from "./components/footer/footer.component";
+import { LeanpageComponent } from './components/leanpage/leanpage.component';
+import { HelpPageComponent } from './components/help-page/help-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { FooterComponent } from "./components/footer/footer.component";
     ErrorComponent,
     SideBarComponent,
     FooterComponent,
+    LeanpageComponent,
+    HelpPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,9 +3,11 @@ import { Routes, RouterModule } from "@angular/router";
 import { PostCreateComponent } from "./posts/post-create/post-create.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { PostListContainer } from "./posts/containers/post-list.container";
+import { LeanpageComponent } from "./components/leanpage/leanpage.component";
+import { HelpPageComponent } from "./components/help-page/help-page.component";
 
 const routes: Routes = [
-  { path: "", component: PostCreateComponent },
+  { path: "", component: LeanpageComponent },
   {
     path: "create",
     component: PostCreateComponent,
@@ -21,6 +23,10 @@ const routes: Routes = [
     path: "edit/:postId",
     component: PostCreateComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: "help",
+    component: HelpPageComponent,
   },
   {
     path: "auth",
