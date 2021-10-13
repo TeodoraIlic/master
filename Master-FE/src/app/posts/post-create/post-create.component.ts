@@ -60,7 +60,6 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
-        
         this.postId = paramMap.get("postId");
         this.postService.getPost(this.postId).subscribe((postData) => {
           console.log("Edit mode", postData);
@@ -76,7 +75,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             title: this.post.title,
             content: this.post.content,
             file: this.post?.filePath ? this.post?.filePath : "",
-            servicePath: this.post?.servicePath ? this.post?.servicePath : ""
+            servicePath: this.post?.servicePath ? this.post?.servicePath : "",
           });
         });
         //to prepopulate form, to override FormControls values
@@ -84,6 +83,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         console.log("evo me ovde",this.post);
       } else {
         this.mode = "create";
+        this.postService.selectedPost.next(null);
         this.postId = null;
       }
     });

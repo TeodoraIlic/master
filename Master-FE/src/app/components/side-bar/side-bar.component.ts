@@ -45,12 +45,20 @@ export class SideBarComponent implements OnInit {
         this.isLoading = false;
         this.totalPosts = postData.postCount;
         console.log("from side bar", postData);
-        this.availableServices = postData.posts.filter(
-          (post) => post.creator !== this.userId
-        );
-        this.myServices = postData.posts.filter(
-          (post) => post.creator === this.userId && post.creator !== undefined
-        );
+
+        if(this.userId===undefined) {
+          //to znaci da nije ulogovan ni jedan user i onda svi postovi idu u available services
+          this.availableServices = postData.posts;
+        } else {
+          //to znaci da je neki korisnik ulogovan i u available services smestamo sve servise koje nije on kreirao
+          this.availableServices = postData.posts.filter(
+            (post) => post.creator !== this.userId
+          );
+          //dok u my services smestamo one koje je taj korisnik kreirao
+          this.myServices = postData.posts.filter(
+            (post) => post.creator === this.userId && post.creator !== undefined
+          );
+        }
       });
  
 

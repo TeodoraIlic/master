@@ -72,7 +72,7 @@ exports.getPosts = (req, res, next) => {
   const pageSize = parseInt(req.query.pageSize);
   const currentPage = parseInt(req.query.page);
   const postQuery = Post.find();
-  let fetchedPosts;
+  
   if (pageSize && currentPage) {
     postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
@@ -90,6 +90,7 @@ exports.getPosts = (req, res, next) => {
           content: createdPost.content,
           serviceName: createdPost.serviceName,
           creator: createdPost.creator,
+          filePath: createdPost.filePath
         })),
         maxPosts: count,
       });
