@@ -76,22 +76,25 @@ exports.getPosts = (req, res, next) => {
   if (pageSize && currentPage) {
     postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
+
   postQuery
     .then((documents) => {
-      this.fetchedPosts = documents;
+      
+      this.fetchedPosts = documents.map((createdPost) => ({
+        id: createdPost._id,
+        title: createdPost.title,
+        content: createdPost.content,
+        serviceName: createdPost.serviceName,
+        creator: createdPost.creator,
+        filePath: createdPost.filePath,
+        servicePath: createdPost.creator === req.query.userId ? createdPost.servicePath : ""
+      }));
       return Post.countDocuments();
     })
     .then((count) => {
       res.status(200).json({
         message: "Post fetched succesfully!",
-        posts: this.fetchedPosts.map((createdPost) => ({
-          id: createdPost._id,
-          title: createdPost.title,
-          content: createdPost.content,
-          serviceName: createdPost.serviceName,
-          creator: createdPost.creator,
-          filePath: createdPost.filePath
-        })),
+        posts: this.fetchedPosts,
         maxPosts: count,
       });
     })

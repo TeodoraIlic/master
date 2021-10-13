@@ -9,8 +9,10 @@ const upload = multer({ dest: "../uploads/" });
 const BASE_URL = "http://localhost:3001";
 const api = apiAdapter(BASE_URL);
 
-router.get("/posts", (req, res) => {
-  api.get(req.path).then((resp) => {
+router.get("/posts", checkAuth, (req, res) => {
+  const queryParams = '?userId=' + req.userData.userId
+  console.log(req.path+queryParams);
+  api.get(req.path+queryParams).then((resp) => {
     res.send(resp.data);
   });
 });

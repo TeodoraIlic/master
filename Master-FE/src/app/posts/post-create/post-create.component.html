@@ -1,63 +1,57 @@
 <div *ngIf="isAuthenticated;else notAuthenticated">
     <mat-card>
-    <form
-      [formGroup]="form"
-      *ngIf="!isLoading"
-      action="/posts"
-      method="post"
-      enctype="multipart/form-data"
-    >
-      <mat-form-field>
-        <input
-          matInput
-          type="text"
-          formControlName="title"
-          placeholder="Post Title"
-        />
-        <mat-error *ngIf="form.get('title').invalid"
-          >Please enter a post title</mat-error
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          type="text"
-          formControlName="servicePath"
-          placeholder="Service Path"
-        />
-        <mat-error *ngIf="form.get('servicePath').invalid"
-          >Please enter a service path</mat-error
-        >
-      </mat-form-field>
-      <div>
-        <button (click)="filePicker.click()">Upload YAML file</button>
-        <input
-          type="file"
-          name="file"
-          class="image-upload"
-          #filePicker
-          (change)="onFilePicked($event)"
-        />
-      </div>
-      <!-- <div
-        class="image-preview"
-        *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+      <form
+        [formGroup]="form"
+        *ngIf="!isLoading"
+        action="/posts"
+        method="post"
+        enctype="multipart/form-data"
       >
-        <img [src]="imagePreview" [alt]="form.value.title" />
-      </div> -->
-      <mat-form-field>
-        <textarea
-          matInput
-          rows="6"
-          formControlName="content"
-          placeholder="Post Content"
-        >
-        </textarea>
-        <mat-error *ngIf="form.get('content').invalid"
-          >Please enter a post content</mat-error
-        >
-      </mat-form-field>
-    </form>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="title"
+            placeholder="Post Title"
+          />
+          <mat-error *ngIf="form.get('title').invalid"
+            >Please enter a post title</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="servicePath"
+            placeholder="Service Path"
+          />
+          <mat-error *ngIf="form.get('servicePath').invalid"
+            >Please enter a service path</mat-error
+          >
+        </mat-form-field>
+        <div>
+          <button (click)="filePicker.click()">Upload YAML file</button>
+          <input
+            type="file"
+            name="file"
+            class="image-upload"
+            #filePicker
+            (change)="onFilePicked($event)"
+          />
+        </div>
+        <mat-form-field>
+          <textarea
+            matInput
+            rows="6"
+            formControlName="content"
+            placeholder="Post Content"
+          >
+          </textarea>
+          <mat-error *ngIf="form.get('content').invalid"
+            >Please enter a post content</mat-error
+          >
+        </mat-form-field>
+      </form>
   </mat-card>
 </div>
 <ng-template #notAuthenticated>

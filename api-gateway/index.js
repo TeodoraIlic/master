@@ -10,10 +10,7 @@ app.use(
     extended: false,
   })
 );
-app.use((req, res, next) => {
-  console.log(global.getAllServices)
-  next()
-})
+
 //any request that is targeting /files folder, will be allowed to continue and
 //fetch their fiels from there
 app.use("/files", express.static(path.join("./files")));
