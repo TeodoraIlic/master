@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
@@ -33,7 +34,7 @@ export class HeaderComponent implements OnInit {
     this.postService.selectedPost.subscribe((value) => {
       this.selectedPost = value;
       console.log("selected post",!!value, value);
-
+      console.log("show save button", (this.selectedPost && this.selectedPost.creator !== this.userId))
     });
   }
   onLogout() {
