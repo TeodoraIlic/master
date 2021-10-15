@@ -1,6 +1,6 @@
 <div class="title-bar">
   <div class="title-bar-text"><a routerLink="/">TeIsTool</a></div>
-  <div style="float: right">
+  <div class="right-menu-items">
     <a routerLink="/auth/signup" *ngIf="!userIsAuthenticated"
       ><button style="margin: 2px">Register</button></a
     >
@@ -14,6 +14,10 @@
     >
       Logout
     </button>
+
+    <a routerLink="/help"
+      ><mat-icon aria-hidden="false">help_outline</mat-icon></a
+    >
   </div>
 </div>
 <div *ngIf="userIsAuthenticated">
@@ -21,19 +25,24 @@
     <li role="menuitem" tabindex="0" aria-haspopup="true">
       <a routerLink="create">Create</a>
     </li>
-    <li 
-      ngClass="{{ selectedPost && selectedPost.creator !== userId ? 'disabled' : '' }}"
-      role="menuitem" 
-      tabindex="0" 
-      aria-haspopup="true" 
-      (click)="onSave()">
+    <li
+      ngClass="{{
+        selectedPost && selectedPost.creator !== userId ? 'disabled' : ''
+      }}"
+      role="menuitem"
+      tabindex="0"
+      aria-haspopup="true"
+      (click)="onSave()"
+    >
       Save
     </li>
     <li
       role="menuitem"
       tabindex="0"
       aria-haspopup="true"
-      ngClass="{{ !selectedPost || selectedPost.creator !== userId ? 'disabled' : '' }}"
+      ngClass="{{
+        !selectedPost || selectedPost.creator !== userId ? 'disabled' : ''
+      }}"
       (click)="onDelete()"
     >
       Delete
