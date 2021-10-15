@@ -69,6 +69,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             content: postData.content,
             filePath: postData.filePath,
             creator: postData.creator,
+            servicePath: postData.servicePath
           };
           this.postService.selectedPost.next(this.post);
           this.form.setValue({
