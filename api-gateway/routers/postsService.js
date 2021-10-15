@@ -10,7 +10,7 @@ const BASE_URL = "http://localhost:3001";
 const api = apiAdapter(BASE_URL);
 
 router.get("/posts", checkAuth, (req, res) => {
-  const queryParams = '?userId=' + req.userData.userId
+  const queryParams = '?userId=' + req.userData?.userId
   console.log(req.path+queryParams);
   api.get(req.path+queryParams).then((resp) => {
     res.send(resp.data);
