@@ -1,20 +1,27 @@
-<div *ngIf="isAuthenticated && post && userId === post.creator;else notAuthenticated">
+<div
+  *ngIf="
+    isAuthenticated && post && userId === post.creator;
+    else notAuthenticated
+  "
+>
   <p>ovo je greska ako otvori</p>
 </div>
 <ng-template #notAuthenticated>
   <div class="container">
     <div class="item-a">
-      <h3>{{post.title}}</h3>
+      <h3>{{ post.title }}</h3>
       <h5>Service path</h5>
-      <div style="margin-left: 20px;">
-        <input type="text" [value]="post.serviceName" id="copyServicePath">
+      <div style="margin-left: 20px">
+        <input type="text" [value]="post.serviceName" id="copyServicePath" />
         <button style="margin: 10px" (click)="onCopy()">Copy text</button>
       </div>
       <div>
-        <button style="margin-left: 20px;">Download YAML file</button>
+        <button style="margin-left: 20px" (click)="onDownloadClick()">
+          Download YAML file
+        </button>
       </div>
       <h5>Service descritpion</h5>
-      <p style="margin-left: 20px;">{{post.content}}</p>
+      <p style="margin-left: 20px">{{ post.content }}</p>
     </div>
   </div>
 </ng-template>
