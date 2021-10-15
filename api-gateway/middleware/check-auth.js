@@ -9,6 +9,11 @@ module.exports = (req, res, next ) => {
                         }
         next();
     }catch(error){
-        res.status(401).json({message: "You are not authenticated!"});
+        console.log(req.method, req.path);
+        if (req.method === 'GET' && req.path === '/posts/') {
+            next();
+        } else {
+            res.status(401).json({message: "You are not authenticated!"});
+        }
     }
 }
